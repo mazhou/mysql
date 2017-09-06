@@ -3,7 +3,6 @@
 <span ><strong>
 登录 ip
 </strong></span>
-<br />
 mysql -h ip -P port -u user -p;
 SHOW VARIABLES WHERE Variable_name = 'port';
 </p>
@@ -12,8 +11,6 @@ SHOW VARIABLES WHERE Variable_name = 'port';
 <span ><strong>
 <ul>mysql 开权限</ul>
 </strong></span>
-<br />
-
 mysql> GRANT ALL PRIVILEGES ON *.* TO root@"%" IDENTIFIED BY "root";
 mysql> flush privileges;
 /etc/init.d/mysql stop
@@ -30,7 +27,6 @@ quit;
 <span ><strong>
 <ul>mysql backup</ul>
 </strong></span>
-<br />
 $ mysqldump --opt -u [uname] -p[pass] [dbname] > [backupfile.sql]
 [uname] Your database username
 [pass] The password for your database (note there is no space between -p and the password)
