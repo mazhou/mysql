@@ -71,7 +71,9 @@ show_time_segment, sum( cdn_size) cdn_size ,sum( p2p_pc_size) p2p_pc_size ,sum( 
 
 from 
 
-(select DATE_FORMAT(concat( (select date(time_stamp)),' ' , (select hour (time_stamp)) ) ,'%Y-%m-%d %H')show_time_segment  , sum( cdn_size) cdn_size ,sum( p2p_pc_size) p2p_pc_size ,sum( p2p_tv_size) p2p_tv_size, sum( p2p_box_size) p2p_box_size ,sum( p2p_mo_size) p2p_mo_size,sum( cde_pc_size) cde_pc_size ,sum( cde_tv_size) cde_tv_size, sum( cde_box_size) cde_box_size ,sum( cde_mo_size) cde_mo_size, sum( lpsize) lpsize,sum(lcsize) lcsize,sum(lsize_cde) lsize_cde,sum(up_rtmfp) up_rtmfp,sum(up_cde) up_cde,sum( conn_node_times) conn_node_times ,sum( get_node_times) get_node_times ,sum( conn_cde_times) conn_cde_times ,sum( get_cde_times) get_cde_times ,sum( share_rep_count)share_rep_count, sum(act) act from share_rate_vod_unicom where ( time_stamp >= date_format(' 2017-9-3 0:00:00 ', '%Y-%m-%d %H:%i:%s') and time_stamp <= date_format('2017-9-4 23:59:59','%Y-%m-%d %H:%i:%s') )  and (  ((select hour('time_stamp') ) >= 0  and (select hour('time_stamp') ) < 24)  ) and country=0  group by show_time_segment  
+(
+
+select DATE_FORMAT(concat( (select date(time_stamp)),' ' , (select hour (time_stamp)) ) ,'%Y-%m-%d %H')show_time_segment  , sum( cdn_size) cdn_size ,sum( p2p_pc_size) p2p_pc_size ,sum( p2p_tv_size) p2p_tv_size, sum( p2p_box_size) p2p_box_size ,sum( p2p_mo_size) p2p_mo_size,sum( cde_pc_size) cde_pc_size ,sum( cde_tv_size) cde_tv_size, sum( cde_box_size) cde_box_size ,sum( cde_mo_size) cde_mo_size, sum( lpsize) lpsize,sum(lcsize) lcsize,sum(lsize_cde) lsize_cde,sum(up_rtmfp) up_rtmfp,sum(up_cde) up_cde,sum( conn_node_times) conn_node_times ,sum( get_node_times) get_node_times ,sum( conn_cde_times) conn_cde_times ,sum( get_cde_times) get_cde_times ,sum( share_rep_count)share_rep_count, sum(act) act from share_rate_vod_unicom where ( time_stamp >= date_format(' 2017-9-3 0:00:00 ', '%Y-%m-%d %H:%i:%s') and time_stamp <= date_format('2017-9-4 23:59:59','%Y-%m-%d %H:%i:%s') )  and (  ((select hour('time_stamp') ) >= 0  and (select hour('time_stamp') ) < 24)  ) and country=0  group by show_time_segment  
 
 union all 
 
@@ -104,7 +106,11 @@ select DATE_FORMAT(concat( (select date(time_stamp)),' ' , (select hour (time_st
 
 union all 
 
-select DATE_FORMAT(concat( (select date(time_stamp)),' ' , (select hour (time_stamp)) ) ,'%Y-%m-%d %H')show_time_segment  , sum( cdn_size) cdn_size ,sum( p2p_pc_size) p2p_pc_size ,sum( p2p_tv_size) p2p_tv_size, sum( p2p_box_size) p2p_box_size ,sum( p2p_mo_size) p2p_mo_size,sum( cde_pc_size) cde_pc_size ,sum( cde_tv_size) cde_tv_size, sum( cde_box_size) cde_box_size ,sum( cde_mo_size) cde_mo_size, sum( lpsize) lpsize,sum(lcsize) lcsize,sum(lsize_cde) lsize_cde,sum(up_rtmfp) up_rtmfp,sum(up_cde) up_cde,sum( conn_node_times) conn_node_times ,sum( get_node_times) get_node_times ,sum( conn_cde_times) conn_cde_times ,sum( get_cde_times) get_cde_times ,sum( share_rep_count)share_rep_count, sum(act) act from share_rate_dl_other where ( time_stamp >= date_format(' 2017-9-3 0:00:00 ', '%Y-%m-%d %H:%i:%s') and time_stamp <= date_format('2017-9-4 23:59:59','%Y-%m-%d %H:%i:%s') )  and (  ((select hour('time_stamp') ) >= 0  and (select hour('time_stamp') ) < 24)  ) and country=0  group by show_time_segment ) as T_m group by show_time_segment ;
+select DATE_FORMAT(concat( (select date(time_stamp)),' ' , (select hour (time_stamp)) ) ,'%Y-%m-%d %H')show_time_segment  , sum( cdn_size) cdn_size ,sum( p2p_pc_size) p2p_pc_size ,sum( p2p_tv_size) p2p_tv_size, sum( p2p_box_size) p2p_box_size ,sum( p2p_mo_size) p2p_mo_size,sum( cde_pc_size) cde_pc_size ,sum( cde_tv_size) cde_tv_size, sum( cde_box_size) cde_box_size ,sum( cde_mo_size) cde_mo_size, sum( lpsize) lpsize,sum(lcsize) lcsize,sum(lsize_cde) lsize_cde,sum(up_rtmfp) up_rtmfp,sum(up_cde) up_cde,sum( conn_node_times) conn_node_times ,sum( get_node_times) get_node_times ,sum( conn_cde_times) conn_cde_times ,sum( get_cde_times) get_cde_times ,sum( share_rep_count)share_rep_count, sum(act) act from share_rate_dl_other where ( time_stamp >= date_format(' 2017-9-3 0:00:00 ', '%Y-%m-%d %H:%i:%s') and time_stamp <= date_format('2017-9-4 23:59:59','%Y-%m-%d %H:%i:%s') )  and (  ((select hour('time_stamp') ) >= 0  and (select hour('time_stamp') ) < 24)  ) and country=0  group by show_time_segment 
+
+) as T_m 
+
+group by show_time_segment ;
 </p>
 
 
