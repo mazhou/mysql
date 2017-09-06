@@ -1,11 +1,13 @@
 # mysql
 <span>
 登录 ip
+<br />
 mysql -h ip -P port -u user -p;
 SHOW VARIABLES WHERE Variable_name = 'port';
 </span>
 
 <span>
+	<br />
 <ul>mysql 开权限</ul>
 mysql> GRANT ALL PRIVILEGES ON *.* TO root@"%" IDENTIFIED BY "root";
 mysql> flush privileges;
@@ -19,6 +21,7 @@ quit;
 </span>
 
 <span>
+	<br />
 <ul>mysql backup</ul>
 $ mysqldump --opt -u [uname] -p[pass] [dbname] > [backupfile.sql]
 [uname] Your database username
