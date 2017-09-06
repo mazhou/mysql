@@ -9,6 +9,48 @@ SHOW VARIABLES WHERE Variable_name = 'port';
 
 <p>
 <span ><strong>
+<ul>mysql view</ul>
+</strong></span>
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_orderid_today` AS (select * from `tb_order_id` where (cast(now() as date) = cast(`tb_order_id`.`MODTIME` as date)))
+
+CREATE VIEW `view_orderid_today` AS (select * from `tb_order_id` where (cast(now() as date) = cast(`tb_order_id`.`MODTIME` as date)));
+
+
+CREATE  VIEW `view_orderid_period` AS (select * from `tb_order_id_period` where (`tb_order_id_period`.`FROMID` <> 3));
+
+CREATE VIEW `view_user_account` AS (select * from (`tb_user_account` `m` left join `tb_capital_conf` `s` on((`m`.`ACCOUNTID` = `s`.`ACCOUNTID`))));
+
+CREATE VIEW `view_orderid_tomorow` AS (select * from `tb_order_id_period` where ((`tb_order_id_period`.`FROMID` = 3) and (`tb_order_id_period`.`MODTIME` > (now() - interval 24 hour))));
+</p>
+
+<p>
+<span ><strong>
+<ul>mysql 存储过程</ul>
+</strong></span>
+BEGIN
+INSERT INTO tb_order_id_history 
+    (SEQUENCE, ORDERID, USERID, PGROUPID, ACCOUNTID, TRADEID, POLICYID, PNAME, POLICYPARAM, DIRTYPE, STOCKSET, DEALSTOCK, STARTTIME, ENDTIME, 
+     ISTEST, BUYCOUNT, BUYAMOUNT, PERCENT, STATUS, FLAG_SYSTEM, FLAG_USER, ADDTIME, MODTIME, FROMID, LABLE, REMARK) SELECT
+     SEQUENCE, ORDERID, USERID, PGROUPID, ACCOUNTID, TRADEID, POLICYID, PNAME, POLICYPARAM, DIRTYPE, STOCKSET, DEALSTOCK, STARTTIME, ENDTIME, 
+     ISTEST, BUYCOUNT, BUYAMOUNT, PERCENT, STATUS, FLAG_SYSTEM, FLAG_USER, ADDTIME, MODTIME, FROMID, LABLE, REMARK from tb_order_id;
+     
+TRUNCATE TABLE tb_order_id;
+DELETE FROM tb_order_id_period WHERE PRDEND<NOW()-INTERVAL 2 DAY;
+INSERT INTO tb_order_id 
+    (SEQUENCE, ORDERID, USERID, PGROUPID, ACCOUNTID, TRADEID, POLICYID, PNAME, POLICYPARAM, DIRTYPE, STOCKSET, DEALSTOCK, STARTTIME, ENDTIME, 
+     ISTEST, BUYCOUNT, BUYAMOUNT, PERCENT, STATUS, FLAG_SYSTEM, FLAG_USER, ADDTIME, MODTIME, FROMID, LABLE, REMARK)  SELECT
+     SEQUENCE, ORDERID, USERID, PGROUPID, ACCOUNTID, TRADEID, POLICYID, PNAME, POLICYPARAM, DIRTYPE, STOCKSET, DEALSTOCK, STARTTIME, ENDTIME, 
+     ISTEST, BUYCOUNT, BUYAMOUNT, PERCENT, STATUS, FLAG_SYSTEM, FLAG_USER, NOW(), now(), FROMID, LABLE, REMARK FROM 
+     tb_order_id_period WHERE FLAG_SYSTEM*FLAG_USER*VISIBLE!=0 and DATE(NOW()) BETWEEN PRDSTART AND PRDEND;
+     
+SET @rescode = 10;
+select @rescode as rescode; 
+END
+</p>
+
+
+<p>
+<span ><strong>
 <ul>mysql 开权限</ul>
 </strong></span>
 mysql> GRANT ALL PRIVILEGES ON *.* TO root@"%" IDENTIFIED BY "root";
